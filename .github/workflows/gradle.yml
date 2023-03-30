@@ -32,3 +32,12 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
+    - name: upload jar
+
+      uses: actions/upload-artifact@v2
+
+      with:
+
+          name: HBM-NTM 
+          path: build/libs/HBM-NTM-.1.0.27_X4551.jar
+
