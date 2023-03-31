@@ -258,5 +258,8 @@
     "alarm.chime": {"category": "record", "sounds": [{"name": "alarm/chime", "stream": false}]},
     "alarm.signalpojarnoytrevogi": {"category": "record", "sounds": [{"name": "alarm/signalpojarnoytrevogi","stream": false }]},
     "alarm.PredupreditelnayaOglushitelnayaGromkayaSirena": {"category": "record", "sounds": [{"name": "alarm/PredupreditelnayaOglushitelnayaGromkayaSirena", "stream": false}]},
-    "alarm.PromyishlennyiySignalTrevogi": {"category": "record", "sounds": [{"name": "alarm/PromyishlennyiySignalTrevogi", "stream": false}]}
+    "alarm.PromyishlennyiySignalTrevogi": {"category": "record", "sounds": [{"name": "alarm/PromyishlennyiySignalTrevogi", "stream": false}]},
+    "alarm.alarm1": {"category": "record", "sounds": [{"name": "alarm/alarm1", "stream": false}]},
+    "alarm.alarm2": {"category": "record", "sounds": [{"name": "alarm/alarm2", "stream": false}]},
+    "alarm.vnimanie": {"category": "record", "sounds": [{"name": "alarm/vnimanie", "stream": false}]}
 }

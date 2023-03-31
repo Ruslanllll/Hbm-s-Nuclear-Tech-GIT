@@ -45,7 +45,10 @@ public class ItemCassette extends Item {
 		RAZORTRAIN(			"Razortrain Horn", 			new ResourceLocation("hbm:alarm.razortrainHorn"),	SoundType.SOUND,	7819501,	250),
 		POJARSUKA(          "Pojarnaya Trevoga blyat",  new ResourceLocation("hbm:alarm.signalpojarnoytrevogi"), SoundType.LOOP, 0xDF3795, 500),
 		INDUSTRIALALARM("Промышленная рревога нахуй", new ResourceLocation("hbm:alarm.PromyishlennyiySignalTrevogi"), SoundType.LOOP, 3565216, 500),
-		PRED("ОГЛУШАЮЩАЯ ТРЕВОГА!", new ResourceLocation("hbm:alarm.PredupreditelnayaOglushitelnayaGromkayaSirena"), SoundType.LOOP, 3358839, 1000);
+		PRED("ОГЛУШАЮЩАЯ ТРЕВОГА!", new ResourceLocation("hbm:alarm.PredupreditelnayaOglushitelnayaGromkayaSirena"), SoundType.LOOP, 3358839, 1000),
+		VNIMA(       "ВНИМАНИЕ",            new ResourceLocation("hbm:alarm.vnimanie"),                       SoundType.LOOP,  590922,      1000),
+		ALARM1(       "ВНИМАНИЕ",            new ResourceLocation("hbm:alarm.alarm1"),                       SoundType.LOOP,  700124,      1000),
+		ALARM2(       "ВНИМАНИЕ",            new ResourceLocation("hbm:alarm.alarm2"),                       SoundType.LOOP,  700120,      1000);
 		//Name of the track shownshown in GUI
 		private String title;
 		//Location of the sound
