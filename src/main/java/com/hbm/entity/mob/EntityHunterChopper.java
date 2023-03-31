@@ -101,7 +101,7 @@ public class EntityHunterChopper extends EntityFlying implements IMob, IBossDisp
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(750.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(75000.0D);
 	}
 
 	@Override

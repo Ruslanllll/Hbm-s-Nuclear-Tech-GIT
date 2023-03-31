@@ -52,9 +52,9 @@ public class EntityMaskMan extends EntityMob implements IBossDisplayData, IRadia
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(100.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(15.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(150.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(1.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(1000.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20000.0D);
 	}
 
 	@Override

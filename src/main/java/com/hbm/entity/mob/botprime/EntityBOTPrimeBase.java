@@ -47,7 +47,7 @@ public abstract class EntityBOTPrimeBase extends EntityWormBaseNT implements IRa
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15000.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(150000.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(1.0D);
 	}
 
