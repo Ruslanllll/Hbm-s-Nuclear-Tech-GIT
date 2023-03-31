@@ -43,7 +43,7 @@ public class ItemCassette extends Item {
 		EAS_ALARM(			"EAS Alarm Screech",		new ResourceLocation("hbm:alarm.easAlarm"),			SoundType.LOOP,		0xb3a8c1,	50),
 		APC_PASS(			"APC Pass", 				new ResourceLocation("hbm:alarm.apcPass"),			SoundType.PASS,		3422163,	50),
 		RAZORTRAIN(			"Razortrain Horn", 			new ResourceLocation("hbm:alarm.razortrainHorn"),	SoundType.SOUND,	7819501,	250),
-		POJARSUKA(          "Pojarnaya Trevoga blyat",  new ResourceLocation("hbm:alarm.signal-pojarnoy-trevogi"), SoundType.LOOP, 0xDF3795, 500);
+		POJARSUKA(          "Pojarnaya Trevoga blyat",  new ResourceLocation("hbm:alarm.signalpojarnoytrevogi"), SoundType.LOOP, 0xDF3795, 500);
 		//Name of the track shownshown in GUI
 		private String title;
 		//Location of the sound

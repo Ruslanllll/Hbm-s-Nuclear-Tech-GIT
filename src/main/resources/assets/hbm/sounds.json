@@ -256,5 +256,5 @@
     "alarm.gambit": {"category": "record", "sounds": [{"name": "alarm/gambit", "stream": true}]},
     "alarm.soyuzed": {"category": "record", "sounds": [{"name": "alarm/soyuzed", "stream": false}]},
     "alarm.chime": {"category": "record", "sounds": [{"name": "alarm/chime", "stream": false}]},
-    "alarm.signal-pojarnoy-trevogi": {"category": "record", "sound": [{"name": "alarm/signal-pojarnoy-trevogi","stream": false }]}
+    "alarm.signalpojarnoytrevogi": {"category": "record", "sound": [{"name": "alarm/signalpojarnoytrevogi","stream": false }]}
 }
