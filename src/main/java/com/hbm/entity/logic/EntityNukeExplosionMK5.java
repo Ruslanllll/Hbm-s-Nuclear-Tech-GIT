@@ -2,6 +2,7 @@ package com.hbm.entity.logic;
 
 import java.util.List;
 
+import com.hbm.util.WorldSaver;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.BombConfig;
@@ -141,6 +142,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 		
 		if(GeneralConfig.enableExtendedLogging && !world.isRemote)
 			MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized explosion at " + x + " / " + y + " / " + z + " with strength " + r + "!");
+		WorldSaver.backup(world);
 		
 		if(r == 0)
 			r = 25;

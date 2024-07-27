@@ -1,5 +1,6 @@
 package com.hbm.entity.logic;
 
+import com.hbm.util.WorldSaver;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.GeneralConfig;
@@ -59,7 +60,7 @@ public class EntityTomBlast extends EntityExplosionChunkloading {
 
 			if(GeneralConfig.enableExtendedLogging && !worldObj.isRemote)
 				MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized TOM explosion at " + posX + " / " + posY + " / " + posZ + " with strength " + destructionRange + "!");
-
+			WorldSaver.backup(worldObj);
 			exp = new ExplosionTom((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange);
 
 			this.did = true;

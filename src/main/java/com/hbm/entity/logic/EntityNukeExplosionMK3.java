@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import com.hbm.util.WorldSaver;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.BombConfig;
@@ -130,6 +131,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
         	
     		if(GeneralConfig.enableExtendedLogging && !worldObj.isRemote)
     			MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized mk3 explosion at " + posX + " / " + posY + " / " + posZ + " with strength " + destructionRange + "!");
+			WorldSaver.backup(worldObj);
     		
         	if(this.waste)
         	{
