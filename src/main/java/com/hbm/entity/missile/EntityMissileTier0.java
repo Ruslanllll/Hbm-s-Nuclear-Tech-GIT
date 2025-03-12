@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hbm.blocks.ModBlocks;
-import com.hbm.blocks.bomb.BlockTaint;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.effect.EntityBlackHole;
 import com.hbm.entity.effect.EntityCloudFleija;
@@ -12,10 +11,11 @@ import com.hbm.entity.effect.EntityEMPBlast;
 import com.hbm.entity.logic.EntityNukeExplosionMK3;
 import com.hbm.explosion.ExplosionNukeGeneric;
 import com.hbm.explosion.ExplosionNukeSmall;
+import com.hbm.inventory.OreDictManager.DictFrame;
 import com.hbm.inventory.material.Mats;
 import com.hbm.items.ModItems;
 
-import com.hbm.items.ItemAmmoEnums.AmmoFatman;
+import com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -81,7 +81,7 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 		public EntityMissileMicro(World world) { super(world); }
 		public EntityMissileMicro(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
 		@Override public void onImpact() { ExplosionNukeSmall.explode(worldObj, posX, posY + 0.5, posZ, ExplosionNukeSmall.PARAMS_HIGH); }
-		@Override public ItemStack getDebrisRareDrop() { return ModItems.ammo_nuke.stackFromEnum(AmmoFatman.HIGH); }
+		@Override public ItemStack getDebrisRareDrop() { return DictFrame.fromOne(ModItems.ammo_standard, EnumAmmo.NUKE_HIGH); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_micro); }
 	}
 	
@@ -127,7 +127,10 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 				int a = rand.nextInt(11) + (int) this.posX - 5;
 				int b = rand.nextInt(11) + (int) this.posY - 5;
 				int c = rand.nextInt(11) + (int) this.posZ - 5;
-				if(worldObj.getBlock(a, b, c).isReplaceable(worldObj, a, b, c) && BlockTaint.hasPosNeightbour(worldObj, a, b, c)) worldObj.setBlock(a, b, c, ModBlocks.taint);
+				Block block = worldObj.getBlock(a, b, c);
+				if(block.isNormalCube() && !block.isAir(worldObj, a, b, c)) {
+					worldObj.setBlock(a, b, c, ModBlocks.taint, rand.nextInt(3) + 4, 2);
+				}
 			}
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.powder_spark_mix, 1); }

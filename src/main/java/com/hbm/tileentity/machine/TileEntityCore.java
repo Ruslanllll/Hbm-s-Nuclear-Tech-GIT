@@ -26,7 +26,7 @@ import com.hbm.util.CompatEnergyControl;
 import api.hbm.tile.IInfoProviderEC;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.GuiScreen;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -49,8 +49,8 @@ public class TileEntityCore extends TileEntityMachineBase implements IGUIProvide
 	public TileEntityCore() {
 		super(3);
 		tanks = new FluidTank[2];
-		tanks[0] = new FluidTank(Fluids.DEUTERIUM, 128000, 0);
-		tanks[1] = new FluidTank(Fluids.TRITIUM, 128000, 1);
+		tanks[0] = new FluidTank(Fluids.DEUTERIUM, 128000);
+		tanks[1] = new FluidTank(Fluids.TRITIUM, 128000);
 	}
 
 	@Override
@@ -138,17 +138,8 @@ public class TileEntityCore extends TileEntityMachineBase implements IGUIProvide
 			
 			if(heat > 0)
 				radiation();
-			
-			NBTTagCompound data = new NBTTagCompound();
-			data.setInteger("tank0", tanks[0].getTankType().ordinal());
-			data.setInteger("tank1", tanks[1].getTankType().ordinal());
-			data.setInteger("fill0", tanks[0].getFill());
-			data.setInteger("fill1", tanks[1].getFill());
-			data.setInteger("field", field);
-			data.setInteger("heat", heat);
-			data.setInteger("color", color);
-			data.setBoolean("melt", meltdownTick);
-			networkPack(data, 250);
+
+			networkPackNT(250);
 			
 			heat = 0;
 			
@@ -164,17 +155,28 @@ public class TileEntityCore extends TileEntityMachineBase implements IGUIProvide
 		
 	}
 
-	public void networkUnpack(NBTTagCompound data) {
-		super.networkUnpack(data);
+	@Override
+	public void serialize(ByteBuf buf) {
+		super.serialize(buf);
 
-		tanks[0].setTankType(Fluids.fromID(data.getInteger("tank0")));
-		tanks[1].setTankType(Fluids.fromID(data.getInteger("tank1")));
-		tanks[0].setFill(data.getInteger("fill0"));
-		tanks[1].setFill(data.getInteger("fill1"));
-		field = data.getInteger("field");
-		heat = data.getInteger("heat");
-		color = data.getInteger("color");
-		meltdownTick = data.getBoolean("melt");
+		tanks[0].serialize(buf);
+		tanks[1].serialize(buf);
+		buf.writeInt(field);
+		buf.writeInt(heat);
+		buf.writeInt(color);
+		buf.writeBoolean(meltdownTick);
+	}
+
+	@Override
+	public void deserialize(ByteBuf buf) {
+		super.deserialize(buf);
+
+		tanks[0].deserialize(buf);
+		tanks[1].deserialize(buf);
+		this.field = buf.readInt();
+		this.heat = buf.readInt();
+		this.color = buf.readInt();
+		this.meltdownTick = buf.readBoolean();
 	}
 	
 	private void radiation() {
@@ -361,7 +363,7 @@ public class TileEntityCore extends TileEntityMachineBase implements IGUIProvide
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public GuiScreen provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new GUICore(player.inventory, this);
 	}
 

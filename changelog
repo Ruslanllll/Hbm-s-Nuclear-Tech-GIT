@@ -1,25 +1,35 @@
 ## Added
-* Plushies
+* `/ntmserver`
+  * Functions like `/ntmclient` but for common settings
+  * Can toggle `DAMAGE_COMPATIBILITY_MODE`, off by default, enables a more compatible (but slightly jankier) version of the bullet damage code
+  * `MINE_<xxx>_DAMAGE` can be used to adjust landmine damage
+  * `TAINT_TRAILS` now replaces the hardcore taint config option, making taint blocks more potent and the potion effect trail taint blocks
+* New ammo types
+  * Explosive 7.62mm
+  * Explosive .50 BMG
+  * Explosive 10 gauge buckshot (unlike 12 gauge which has explosive slugs)
 
 ## Changed
-* The fluid burner, heat exchanging heater and cooling tower now use the single steel pipe items instead of the larger steel pipes
-* Reduced the amount of condensers needed for crafting the cooling towers
-* Liquefactors and solidifiers now have a base processing time of 5 seconds per operation (instead of 10)
-* Added some info to the coltass about how the coltan deposit works
-* Moved some NEI handlers around, fluid containers are now listed last and radiolysis is now listed right after cracking, since they have the same recipes
-* The autocrafter's inputs are now limited to 4 items per slot
-* Autocrafters can now receive stacked items again (except for items with containers), if they do not exceed the 4 item threshold
-* Bedrock ores now produce bedrock ore fragments instead of straight outputs, one fragment is equivalent to a nugget
-  * Fragments also differ in stack size when produced, most primary fractions yield 9 (equal to the previous full powder), but things with lower demands/higher value like bismuth now yield substantially less
-* The base speed of the large mining drill when mining bedrock has been reduced by 80%, it is now advisable to either invest in upgrades early on or use multiple drills
-* The bedrock ore processor now has a base speed of 30 seconds
+* Fat mines now use the standardized mini nuke code
+  * Fat mines now have a base damage of exactly 100, being identical to demolition mini nukes
+  * Fat mines now gib affected entities
+* IV bags now use `setHealth` operations instead of dealing damage, preventing health duplication by just avoiding the damage
+* The settings tool can now copy and paste the "paint" from paintable cables and fluid ducts
+* Changed the way taint works
+  * Instead of neon purple vines, taint is bow a greyish sludge
+  * Taint now actively replaces blocks instead of growing along them
+  * Taint is still limited in spread, however taint spread is lower underground, taint decays three times faster in intensity if the block is not exposed to air, making taint spread more along the surface
+  * Taint has a 25% chance of splashing down when replacing a block with no supports, causing structures to collapse and taint to spread faster
+  * Similar to soil sand, entities will sink in taint and get slowed down
+  * The sludge consumeth
+* `enableGuns` config option now applies to SEDNA system guns, simply canceling all gun-related keybinds
+* Cinnabar dust, if registered by another mod, can now be acidized into cinnabar using hydrogen peroxide
+* Copper wires, like AA and gold, can now be welded into dense wires
 
 ## Fixed
-* Fixed crash caused by decontaminating items with the radiolysis machine
-* Fixed ICFs not forming correctly depending on the orientation
-* Fixed electrolyzer metal recipe config not working
-* Fixed the meteor charms not working when used on helmets
-* Fixed NEI handler for the ICF's consturction showing inconsistent values
-* Fixed radiolysis recipes not showing up in NEI unless the usage recipes are loaded first
-* Fixed autocrafter's grid not properly updating when using NEI drag and drop for the filter
-* Fixed all carbon-based crucible materials having the wrong ID, this fix will shift IDs but prevent collisions with silicon
+* Fixed animation errors on the MAS-36
+* Fixed drone docks, requester and provider crates not dropping their contents when broken
+* Fixed all missing texture errors that appear in the startup log
+* Potentially fixed a crash with mekanism during the recipe change phase
+* Removed the coke to heavy oil recipe for allowing infinite oil loops
+  * Coke to syngas and coalgas recipes should be fine though, so they stay

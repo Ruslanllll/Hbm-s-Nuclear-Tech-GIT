@@ -21,11 +21,11 @@ import com.hbm.util.CompatEnergyControl;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.SimpleComponent;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -141,7 +141,7 @@ public class TileEntityMachineBattery extends TileEntityMachineBase implements I
 			if(i == 0 && ((IBatteryItem)itemStack.getItem()).getCharge(itemStack) == 0) {
 				return true;
 			}
-			if(i == 1 && ((IBatteryItem)itemStack.getItem()).getCharge(itemStack) == ((IBatteryItem)itemStack.getItem()).getMaxCharge()) {
+			if(i == 1 && ((IBatteryItem)itemStack.getItem()).getCharge(itemStack) == ((IBatteryItem)itemStack.getItem()).getMaxCharge(itemStack)) {
 				return true;
 			}
 		}
@@ -214,13 +214,7 @@ public class TileEntityMachineBattery extends TileEntityMachineBase implements I
 			
 			prevPowerState = power;
 			
-			NBTTagCompound nbt = new NBTTagCompound();
-			nbt.setLong("power", avg);
-			nbt.setLong("delta", delta);
-			nbt.setShort("redLow", redLow);
-			nbt.setShort("redHigh", redHigh);
-			nbt.setByte("priority", (byte) this.priority.ordinal());
-			this.networkPack(nbt, 20);
+			this.networkPackNT(20);
 		}
 	}
 	
@@ -241,23 +235,34 @@ public class TileEntityMachineBattery extends TileEntityMachineBase implements I
 
 	@Override public long getProviderSpeed() {
 		int mode = this.getRelevantMode(true);
-		return mode == mode_output || mode == mode_buffer ? this.getMaxPower() / 20 : 0;
+		return mode == mode_output || mode == mode_buffer ? this.getMaxPower() / 600 : 0;
 	}
 	
 	@Override public long getReceiverSpeed() {
 		int mode = this.getRelevantMode(true);
-		return mode == mode_input || mode == mode_buffer ? this.getMaxPower() / 20 : 0;
+		return mode == mode_input || mode == mode_buffer ? this.getMaxPower() / 200 : 0;
 	}
 
 	@Override
-	public void networkUnpack(NBTTagCompound nbt) {
-		super.networkUnpack(nbt);
+	public void serialize(ByteBuf buf) {
+		super.serialize(buf);
 
-		this.power = nbt.getLong("power");
-		this.delta = nbt.getLong("delta");
-		this.redLow = nbt.getShort("redLow");
-		this.redHigh = nbt.getShort("redHigh");
-		this.priority = ConnectionPriority.values()[nbt.getByte("priority")];
+		buf.writeLong(power);
+		buf.writeLong(delta);
+		buf.writeShort(redLow);
+		buf.writeShort(redHigh);
+		buf.writeByte(priority.ordinal());
+	}
+
+	@Override
+	public void deserialize(ByteBuf buf) {
+		super.deserialize(buf);
+
+		power = buf.readLong();
+		delta = buf.readLong();
+		redLow = buf.readShort();
+		redHigh = buf.readShort();
+		priority = ConnectionPriority.values()[buf.readByte()];
 	}
 
 	@Override
@@ -335,7 +340,7 @@ public class TileEntityMachineBattery extends TileEntityMachineBase implements I
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public GuiScreen provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new GUIMachineBattery(player.inventory, this);
 	}
 
